@@ -23,14 +23,7 @@ namespace TestTaskConsoleApp.Services
                 var json = await response.Content.ReadAsStringAsync();
                 BooksJsonModel? deserializedModel = JsonConvert.DeserializeObject<BooksJsonModel>(json);
 
-                if(deserializedModel != null ) 
-                {
-                    return deserializedModel;
-                }
-                else
-                {
-                    throw new JsonException("Failed to deserialize BooksJsonModel.");
-                }
+                return deserializedModel ?? throw new JsonSerializationException("Failed to deserialize BooksJsonModel.");
             }
             else
             {
@@ -59,7 +52,8 @@ namespace TestTaskConsoleApp.Services
         {
             return books
                 .GroupBy(book => book.ParentName)
-                .OrderBy(group => group.Key);
+                .OrderBy(group => group.Key, StringComparer.OrdinalIgnoreCase)
+                .Cast<IGrouping<string, Book>>();
         }
 
         /// <summary>
@@ -78,7 +72,10 @@ namespace TestTaskConsoleApp.Services
 
                 foreach (var book in group)
                 {
-                    await writer.WriteLineAsync($"{book.DisplayName} {string.Join(", ", book.Meta.States)}");
+                    string displayName = book.DisplayName ?? string.Empty;
+                    string states = book.Meta?.States != null ? string.Join(", ", book.Meta.States) : string.Empty;
+
+                    await writer.WriteLineAsync($"{displayName} {states}");
                 }
             }
         }

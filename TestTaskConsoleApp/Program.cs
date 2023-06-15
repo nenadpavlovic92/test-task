@@ -1,4 +1,7 @@
-﻿using TestTaskConsoleApp.Models;
+﻿using Newtonsoft.Json;
+using System.Runtime.Intrinsics.X86;
+using System.Text.Json;
+using TestTaskConsoleApp.Models;
 using TestTaskConsoleApp.Services;
 
 namespace TestTaskConsoleApp
@@ -37,10 +40,21 @@ namespace TestTaskConsoleApp
                 }
 
             }
+            catch (ArgumentNullException ane)
+            {
+                Console.WriteLine($"ArgumentNullException occured: {ane.Message}");
+            }
+            catch (JsonSerializationException jse)
+            {
+                Console.WriteLine($"JsonSerializationException occured: {jse.Message}");
+            }
+            catch (HttpRequestException he)
+            {
+                Console.WriteLine($"HttpRequestException occured: {he.Message}");
+            }
             catch (Exception e)
             {
                 Console.WriteLine($"An error occured: {e.Message}");
-                throw;
             }
         }
     }
