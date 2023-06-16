@@ -13,7 +13,9 @@ namespace TestTaskConsoleApp
             try
             {
                 Console.WriteLine("Application started.");
+
                 BooksJsonModel booksModel = await BookService.ExtractBooksData();
+                Console.WriteLine("Books data extracted successfully.");
 
                 if (booksModel.Books != null && booksModel.Books != null)
                 {
@@ -21,17 +23,17 @@ namespace TestTaskConsoleApp
 
                     if(filteredBooks.Count > 0)
                     {
-                        Console.WriteLine("Books filtered by New Jersey or Colorado with parent not null.");
+                        Console.WriteLine("Books from 'New Jersey' or 'Colorado' with 'parent name' value not null are filtered successfully.");
 
                         var groupedBooks = BookService.GroupAndOrderBooksByParentName(filteredBooks);
-                        Console.WriteLine("Books grouped by and ordered by parent name.");
+                        Console.WriteLine("Books grouped and ordered by 'parent name'.");
 
                         await BookService.SaveGroupedBooksToFile(groupedBooks, "result.txt");
-                        Console.WriteLine("File result.txt created successfully.");
+                        Console.WriteLine("File 'result.txt' created successfully.");
                     }
                     else
                     {
-                        Console.WriteLine("There is no books matching criteria. Therefore no result.txt file is created.");
+                        Console.WriteLine("There are no books matching criteria. Therefore no 'result.txt' file is created.");
                     }
                 }
                 else

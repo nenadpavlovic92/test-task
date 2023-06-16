@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using TestTaskConsoleApp.Constants;
 using TestTaskConsoleApp.Models;
 
 namespace TestTaskConsoleApp.Services
@@ -36,10 +37,10 @@ namespace TestTaskConsoleApp.Services
         /// </summary>
         /// <param name="books">The list of books to filter.</param>
         /// <returns>The filtered list of books.</returns>
-        public static List<Book> FilterBooksByStatesAndParent(List<Book> books)
+        public static List<Book> FilterBooksByStatesAndParent(List<Book> allBooks)
         {
-            return books
-                .Where(book => (book.Meta?.States?.Contains("NJ") == true || book.Meta?.States?.Contains("CO") == true) && book.ParentName != null)
+            return allBooks
+                .Where(book => (book.Meta?.States?.Contains(USAStates.Colorado) == true || book.Meta?.States?.Contains(USAStates.NewJersey) == true) && book.ParentName != null)
                 .ToList();
         }
 
@@ -48,12 +49,11 @@ namespace TestTaskConsoleApp.Services
         /// </summary>
         /// <param name="books">The list of books to group and order by.</param>
         /// <returns>The grouped books.</returns>
-        public static IEnumerable<IGrouping<string, Book>> GroupAndOrderBooksByParentName(List<Book> books)
+        public static IEnumerable<IGrouping<string, Book>> GroupAndOrderBooksByParentName(List<Book> filteredBooks)
         {
-            return books
-                .GroupBy(book => book.ParentName)
-                .OrderBy(group => group.Key, StringComparer.OrdinalIgnoreCase)
-                .Cast<IGrouping<string, Book>>();
+            return filteredBooks
+                .GroupBy(book => book.ParentName!)
+                .OrderBy(group => group.Key);
         }
 
         /// <summary>
