@@ -14,5 +14,10 @@
         /// New Jersey state two letters abbreviation.
         /// </summary>
         public static readonly string NewJersey = "NJ";
+
+        /// <summary>
+        /// New York state two letters abbreviation.
+        /// </summary>
+        public static readonly string NewYork = "NY";
     }
 }

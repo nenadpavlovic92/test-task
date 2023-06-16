@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System.Runtime.Intrinsics.X86;
-using System.Text.Json;
+using TestTaskConsoleApp.Constants;
 using TestTaskConsoleApp.Models;
 using TestTaskConsoleApp.Services;
 
@@ -14,7 +13,7 @@ namespace TestTaskConsoleApp
             {
                 Console.WriteLine("Application started.");
 
-                BooksJsonModel booksModel = await BookService.ExtractBooksData();
+                BooksJsonModel booksModel = await BookService.ExtractBooksData(Urls.Api);
                 Console.WriteLine("Books data extracted successfully.");
 
                 if (booksModel.Books != null && booksModel.Books != null)

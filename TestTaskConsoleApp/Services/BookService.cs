@@ -13,11 +13,11 @@ namespace TestTaskConsoleApp.Services
         /// Extracts books data from external public API.
         /// </summary>
         /// <returns>The extracted books data.</returns>
-        public static async Task<BooksJsonModel> ExtractBooksData()
+        public static async Task<BooksJsonModel> ExtractBooksData(string api)
         {
             using var httpClient = new HttpClient();
 
-            HttpResponseMessage response = await httpClient.GetAsync("https://api.actionnetwork.com/web/v1/books");
+            HttpResponseMessage response = await httpClient.GetAsync(api);
                 
             if(response.IsSuccessStatusCode)
             {
