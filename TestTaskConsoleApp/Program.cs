@@ -13,7 +13,7 @@ namespace TestTaskConsoleApp
             {
                 Console.WriteLine("Application started.");
 
-                BooksJsonModel booksModel = await BookService.ExtractBooksData(Urls.Api);
+                BooksRootModel booksModel = await BookService.ExtractBooksData(Urls.Api);
                 Console.WriteLine("Books data extracted successfully.");
 
                 if (booksModel.Books != null && booksModel.Books != null)

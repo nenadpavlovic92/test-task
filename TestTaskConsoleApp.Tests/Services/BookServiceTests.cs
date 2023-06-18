@@ -19,7 +19,7 @@ namespace TestTaskConsoleApp.Tests.Services
             var result = await BookService.ExtractBooksData(Urls.Api);
 
             // Assert
-            Assert.IsType<BooksJsonModel>(result);
+            Assert.IsType<BooksRootModel>(result);
         }
 
         [Fact]

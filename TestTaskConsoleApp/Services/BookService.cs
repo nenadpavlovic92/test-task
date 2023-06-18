@@ -13,7 +13,7 @@ namespace TestTaskConsoleApp.Services
         /// Extracts books data from external public API.
         /// </summary>
         /// <returns>The extracted books data.</returns>
-        public static async Task<BooksJsonModel> ExtractBooksData(string api)
+        public static async Task<BooksRootModel> ExtractBooksData(string api)
         {
             using var httpClient = new HttpClient();
 
@@ -21,10 +21,10 @@ namespace TestTaskConsoleApp.Services
                 
             if(response.IsSuccessStatusCode)
             {
-                var json = await response.Content.ReadAsStringAsync();
-                BooksJsonModel? deserializedModel = JsonConvert.DeserializeObject<BooksJsonModel>(json);
+                var responseJson = await response.Content.ReadAsStringAsync();
+                BooksRootModel? deserializedModel = JsonConvert.DeserializeObject<BooksRootModel>(responseJson);
 
-                return deserializedModel ?? throw new JsonSerializationException("Failed to deserialize BooksJsonModel.");
+                return deserializedModel ?? throw new JsonSerializationException("Failed to deserialize BooksRootModel.");
             }
             else
             {

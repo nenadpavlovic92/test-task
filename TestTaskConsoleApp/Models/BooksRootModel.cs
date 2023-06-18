@@ -3,9 +3,9 @@
 namespace TestTaskConsoleApp.Models
 {
     /// <summary>
-    /// Represents a JSON model of books object.
+    /// Represents a root JSON model of books object.
     /// </summary>
-    public class BooksJsonModel
+    public class BooksRootModel
     {
         /// <summary>
         /// Get or sets the list of books.
